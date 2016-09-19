@@ -1,0 +1,19 @@
+machine:
+  environment:
+    DOWNSTREAM: hackreactor/chatterbox-client
+dependencies:
+  pre:
+    - npm install -g reactorcore/problemify
+    - npm install -g mocha
+    - npm install -g phantomjs
+    - npm install -g mocha-phantomjs@3.3.0
+    - git clone git@github.com:reactorcore/utils.scripts.git ../scripts
+test:
+  override:
+    - mocha-phantomjs --reporter min SpecRunner.html
+deployment:
+  master:
+    branch: master
+    commands:
+      # - ../scripts/circle-ci/deploy/checkout-latest-tag.sh
+      - ../scripts/circle-ci/deploy/publish-to-hackreactor.sh
