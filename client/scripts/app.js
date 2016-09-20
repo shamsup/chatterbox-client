@@ -45,7 +45,7 @@ var app = (function() {
 
     fetch(params, ({results}) => {
       results.forEach(message => {
-        data.rooms[message.roomname] = data.rooms[message.roomname] || [];
+        data.rooms[message.roomname] = data.rooms[message.roomname] || (renderRoom[message.roomName], []);
         data.rooms[message.roomname].push(message);
         data.messages[message.objectId] = message;
         if (message.roomname === data.currentRoom) {
@@ -55,7 +55,7 @@ var app = (function() {
       if (results.length) {
         data.lastReceived = results[results.length-1].createdAt;
       }
-      setTimeout(update, 0);
+      setTimeout(update, 1000);
     });
   }
 
@@ -126,6 +126,13 @@ var app = (function() {
       $('#room-name').text(data.currentRoom);
       $('#chats').empty();
       data.rooms[data.currentRoom].forEach(renderMessage);
+      $('#roomSelect li').each(function() {
+        if($('a', this).prop('roomName') === roomName) {
+          $(this).addClass('selected');
+          return;
+        }
+        $(this).removeClass('selected');
+      })
 
     }
   }
