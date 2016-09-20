@@ -1,90 +1,52 @@
 body {
-    background: #eee;
-    text-align: center;
-    padding: 0 25px;
-    font-family: arial, sans-serif;
+  background-color: #eceff1;
 }
 
-#main, #chats {
-    width: 500px;
-    margin: auto;
-    text-align: left;
-    background: white;
-    padding: 50px 60px;
-    border: solid #ddd;
-    border-width: 0 1px 1px 1px;
+html, body, .chat {
+  height: 100%;
 }
 
-#main h1 {
-    margin-top: 0;
-    font-size: 35px;
-    margin-bottom: 5px;
-    padding: 5px;
+.main {
+  height: calc(100vh - 64px);
+  margin-top: 64px;
 }
 
-#main h1 span {
-    font-style:italic;
+.main .messages {
+  overflow-y: scroll;
+  height: calc(100% - 204px);
 }
 
-#main ul {
-    padding-left: 20px;
+.main > .col {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+nav.main-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #5c6bc0;
 }
 
-#main .error {
-    border: 1px solid red;
-    background: #FDEFF0;
-    padding: 20px;
+ .messages {
+   list-style: none;
+ }
+
+#roomSelect {
+  background-color: #eceff1;
 }
 
-#main .success {
-    margin-top: 25px;
+#roomSelect a {
+  font-size:1.5rem;
+  line-height:2rem;
+  color: #607d8b;
 }
 
-#main .success code {
-    font-size: 12px;
-    color: green;
-    line-height: 13px;
-}
+ .messages .row {
+   padding:0;
+   margin:0;
+ }
 
-form {
-    padding: 20px;
-    padding-left: 0;
-    margin-bottom: 20px;
+.material-icons {
+  vertical-align:bottom;
 }
-
-form input[type=text] {
-    margin-right: 10px;
-    width: 70%;
-    font-size: 12px;
-    padding: 5px;
-}
-
-.chat {
-    padding: 5px;
-    margin-bottom: 5px;
-    background-color: #eee;
-}
-
-.chat .username {
-    font-weight: 800;
-}
-
-.chat:hover {
-    background-color: #ddd;
-}
-
-.spinner {
-    float: right;
-    height: 46px;
-    margin-bottom: 5px;
-}
-
-.spinner img {
-    padding: 10px;
-}
-
-.friend {
-    color: #fff;
-    background-color: #0090da;
-}
-
