@@ -81,12 +81,12 @@ var app = (function() {
   }
 
   function renderMessage(message) {
-    var $li = $('<li class="collection-item"></li>');
+    var $li = $(`<li class="collection-item${data.friends[message.username] ? ' friended' : ''}"></li>`);
     var $row = $('<div class="row"></div>');
     var $username = $('<div class="username col s3"></span>');
     $username.text(message.username);
     $username.data('username', message.username);
-    $friendIcon = $(`<i class="material-icons${data.friends[message.username] ? ' friended' : ''}">assignment_ind</i>`);
+    $friendIcon = $(`<i class="material-icons">assignment_ind</i>`);
     $username.prepend($friendIcon);
     var $message = $('<div class="message"></div>');
     $message.text(message.text);
@@ -109,14 +109,15 @@ var app = (function() {
   function handleUsernameClick(e) {
     var username = $(this).data('username');
     data.friends[username] = !data.friends[username];
-    $('i', this).toggleClass('friended');
+    $(this).parent().parent().toggleClass('friended');
   }
 
   function handleSubmit(e) {
-    console.log('called')
     e.preventDefault();
     var message = $('#message').val();
-    this.send({username: data.username, text: message, roomname: data.currentRoom});
+    if (message.length) {
+      this.send({username: data.username, text: message, roomname: data.currentRoom});
+    }
     e.target.reset()
   }
 
