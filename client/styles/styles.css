@@ -40,6 +40,10 @@ nav.main-nav {
 
 #roomSelect li {
   margin: 0.25rem 0;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #roomSelect a {

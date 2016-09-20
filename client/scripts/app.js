@@ -2,13 +2,12 @@ var app = (function() {
   var url = 'https://api.parse.com/1/classes/messages';
   var data = {
     username: 'testuserlol',
+    lastReceived: '',
     currentRoom: '',
     rooms: {},
     messages: {},
     friends: {},
   };
-
-
 
   function init(){
     // gather the username
@@ -19,8 +18,8 @@ var app = (function() {
       e.preventDefault();
       this.setRoom($(e.target).prop('roomName'));
     }.bind(this));
-    this.fetch(({results}) => {
-      results.forEach(message => {
+    this.fetch({ order: '-createdAt', limit: 1000}, ({results}) => {
+      results.reverse().forEach(message => {
         data.messages[message.objectId] = message;
         data.rooms[message.roomname] = data.rooms[message.roomname] || [];
         data.rooms[message.roomname].push(message);
@@ -29,10 +28,34 @@ var app = (function() {
         }
       });
 
+      data.lastReceived = results[0].createdAt;
       for (var key in data.rooms) {
         this.renderRoom(key);
       }
       setRoom('lobby');
+      update();
+    });
+  }
+
+  function update() {
+    var params = {
+      order: 'createdAt',
+      where: `{"createdAt": {"$gt": "${data.lastReceived}"}}`
+    };
+
+    fetch(params, ({results}) => {
+      results.forEach(message => {
+        data.rooms[message.roomname] = data.rooms[message.roomname] || [];
+        data.rooms[message.roomname].push(message);
+        data.messages[message.objectId] = message;
+        if (message.roomname === data.currentRoom) {
+          renderMessage(message);
+        }
+      });
+      if (results.length) {
+        data.lastReceived = results[results.length-1].createdAt;
+      }
+      setTimeout(update, 0);
     });
   }
 
@@ -44,10 +67,11 @@ var app = (function() {
     });
   }
 
-  function fetch(callback) {
+  function fetch(params, callback) {
     $.ajax({
       url: url,
       type: 'GET',
+      data: params,
       success: callback
     });
   }
@@ -93,6 +117,7 @@ var app = (function() {
     e.preventDefault();
     var message = $('#message').val();
     this.send({username: data.username, text: message, roomname: data.currentRoom});
+    e.target.reset()
   }
 
   function setRoom(roomName) {
