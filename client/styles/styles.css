@@ -34,6 +34,12 @@ nav.main-nav {
 
 #roomSelect {
   background-color: #eceff1;
+  padding-left: 1rem;
+  border-top: solid 1px lightgray;
+}
+
+#roomSelect li {
+  margin: 0.25rem 0;
 }
 
 #roomSelect a {
@@ -49,4 +55,17 @@ nav.main-nav {
 
 .material-icons {
   vertical-align:bottom;
+}
+
+.friended {
+  color: #ffd54f;
+}
+
+.chat-input {
+  display: flex;
+}
+
+input[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid #5c6bc0;
+  box-shadow: 0 1px 0 0 #5c6bc0;
 }

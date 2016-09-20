@@ -11,17 +11,17 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="scripts/materialize.js"></script>
     <script>
-    $('#side-menu').sideNav();
-      // YOU DO NOT NEED TO EDIT THIS CODE
-      if (!/(&|\?)username=/.test(window.location.search)) {
-        var newSearch = window.location.search;
-        if (newSearch !== '' & newSearch !== '?') {
-          newSearch += '&';
-        }
-        var username = prompt('What is your name?') || 'anonymous';
-        newSearch += 'username=' + username;
-        window.location.search = newSearch;
-      }
+    // $('#side-menu').sideNav();
+    //   // YOU DO NOT NEED TO EDIT THIS CODE
+    //   if (!/(&|\?)username=/.test(window.location.search)) {
+    //     var newSearch = window.location.search;
+    //     if (newSearch !== '' & newSearch !== '?') {
+    //       newSearch += '&';
+    //     }
+    //     var username = prompt('What is your name?') || 'anonymous';
+    //     newSearch += 'username=' + username;
+    //     window.location.search = newSearch;
+    //   }
     </script>
     <!-- your scripts -->
     <script src="env/config.js"></script>
@@ -53,7 +53,7 @@
         </ul>
         <form id="send" action="?" class="chat-input">
           <input id="message" type="text" placeholder="chat here" />
-          <button class="submit">add</button>
+          <button class="submit btn-floating btn-large waves-effect waves-light indigo lighten-1"><i class="material-icons">send</i></button>
         </form>
       </div>
 

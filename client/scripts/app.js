@@ -11,6 +11,8 @@ var app = (function() {
 
 
   function init(){
+    // gather the username
+    data.username = prompt('What is your username?') || 'holydiver666';
     $('#main').on('click', '.username', this.handleUsernameClick);
     $('#send').on('submit', this.handleSubmit.bind(this));
     $('#roomSelect').on('click', 'a', function(e) {
@@ -60,13 +62,16 @@ var app = (function() {
     var $username = $('<div class="username col s3"></span>');
     $username.text(message.username);
     $username.data('username', message.username);
-    $friendIcon = $(`<i class="material-icons">assignment_ind</i>`);
+    $friendIcon = $(`<i class="material-icons${data.friends[message.username] ? ' friended' : ''}">assignment_ind</i>`);
     $username.prepend($friendIcon);
     var $message = $('<div class="message"></div>');
     $message.text(message.text);
     $row.append($username, $message);
     $li.append($row);
     $('#chats').append($li);
+
+    // always have chat box scrolled to bottom
+    $('#chats').scrollTop($('#chats')[0].scrollHeight);
   }
 
   function renderRoom(roomName) {
@@ -80,6 +85,7 @@ var app = (function() {
   function handleUsernameClick(e) {
     var username = $(this).data('username');
     data.friends[username] = !data.friends[username];
+    $('i', this).toggleClass('friended');
   }
 
   function handleSubmit(e) {
